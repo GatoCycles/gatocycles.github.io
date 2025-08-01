@@ -127,7 +127,7 @@ body {
 .content-sections {
     position: relative;
     z-index: 5;
-    margin-top: 160vh; /* Increased to push content down until transition finishes */
+    margin-top: 180vh; /* Increased to push content down until transition finishes */
     background: white;
 }
 
