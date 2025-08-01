@@ -203,9 +203,9 @@
             const fadeStart = windowHeight * 0.15;
             const fadeEnd = windowHeight * 0.6;
             
-            // Calculate fade out for content overlay
-            const overlayFadeStart = windowHeight * 1.2; // Start fading overlay at 120vh
-            const overlayFadeEnd = windowHeight * 1.5;   // Finish fading overlay at 150vh
+            // Calculate scroll-away effect for content overlay
+            const scrollAwayStart = windowHeight * 1.0; // Start moving overlay at 100vh
+            const scrollAwayEnd = windowHeight * 1.6;   // Finish moving overlay at 160vh
             
             // Background transition
             if (scrolled <= fadeStart) {
@@ -225,14 +225,19 @@
                 if (logoBlack) logoBlack.style.opacity = fadeProgress;
             }
             
-            // Content overlay fade out
-            if (scrolled <= overlayFadeStart) {
+            // Content overlay scroll-away effect
+            if (scrolled <= scrollAwayStart) {
+                contentOverlay.style.transform = 'translateY(0)';
                 contentOverlay.style.opacity = '1';
-            } else if (scrolled >= overlayFadeEnd) {
+            } else if (scrolled >= scrollAwayEnd) {
+                contentOverlay.style.transform = 'translateY(-100vh)';
                 contentOverlay.style.opacity = '0';
             } else {
-                const overlayFadeProgress = (scrolled - overlayFadeStart) / (overlayFadeEnd - overlayFadeStart);
-                contentOverlay.style.opacity = 1 - overlayFadeProgress;
+                const scrollProgress = (scrolled - scrollAwayStart) / (scrollAwayEnd - scrollAwayStart);
+                const translateY = -scrollProgress * 100; // Move up by 100vh over the scroll range
+                const opacity = 1 - scrollProgress; // Fade out as it moves
+                contentOverlay.style.transform = `translateY(${translateY}vh)`;
+                contentOverlay.style.opacity = opacity;
             }
         });
 
